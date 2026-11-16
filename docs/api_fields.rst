@@ -115,6 +115,9 @@ another ``CoilSet``).
     desc.coils.CoilSet
     desc.coils.MixedCoilSet
 
+By default, the field of a coil is computed with ``source_grid=LinearGrid(N=max(2 * coil.N * coil.NFP + 5, 32))``,
+and evaluation points close to a coil may need a finer ``source_grid``.
+
 DESC ``CoilSet`` or ``MixedCoilSet`` objects can also be created from MAKEGRID-formatted coil text files via
 the `from_makegrid_coilfile` method. They can also be saved in a MAKEGRID-formatted text file with
 the `save_in_makegrid_format` method.

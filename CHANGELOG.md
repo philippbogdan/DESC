@@ -46,6 +46,7 @@ Bug Fixes
 - Improves planar coil representation (``desc.coils.FourierPlanarCoil`` and ``desc.coils.FourierXYCoil``) internal rotation methods to avoid potential NaNs which could occur when the normal is parallel or antiparallel to Z-axis( to within machine epsilon), and also ensure the gradient at those edge cases is not only not NaN but also non-zero to avoid optimizer stalls at those cases.
 - Fixes potential scaling-based issue in DESC-based optimization methods which use adaptive Hessian scaling (e.g. ``"fmintr"``) that could occur when the problem size was small and there were directions of near-zero derivative in the problem.
 - Fixes computation of ``CoilSetLinkingNumber`` to exclude coil writhe.
+- Coil magnetic fields computed without a ``source_grid`` now use at least ``LinearGrid(N=32)`` (65 points) along each coil. The previous default ``LinearGrid(N=2 * coil.N + 5)`` has only 11 points for a ``FourierPlanarCoil`` with ``N=0`` (e.g. from ``initialize_modular_coils``), too few for an accurate field at the plasma boundary.
 - Adjusts the `quad_weights` of coil objectives of type `_broadcast_input = "node"` to ensure their outputs are roughly independent of grid resolution.
 - Fixes bug in modified Cholesky factorization used by the trust-region
   subproblems when the Gershgorin lower bound of the Hessian was exactly zero
